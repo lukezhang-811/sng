@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Samples</title>
+</head>
+<body>
+    <h1>All Samples</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Sample ID</th>
+                <th>Project Name</th>
+                <th>Institution</th>
+                <th>Technology</th>
+                <th>Storage Type</th>
+                <th>Tissue Type</th>
+                <th>Sample Name</th>
+                <th>Origin</th>
+                <th>Condition</th>
+                <th>Replicate</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sample in samples %}
+            <tr>
+                <td>{{ sample.sample_id }}</td>
+                <td>{{ sample.project_name }}</td>
+                <td>{{ sample.institution }}</td>
+                <td>{{ sample.technology }}</td>
+                <td>{{ sample.storage_type }}</td>
+                <td>{{ sample.tissue_type }}</td>
+                <td>{{ sample.sample_name }}</td>
+                <td>{{ sample.origin }}</td>
+                <td>{{ sample.condition }}</td>
+                <td>{{ sample.replicate }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
