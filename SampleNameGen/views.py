@@ -4,6 +4,10 @@ from .forms import SampleForm
 from .models import Sample
 
 def home(request):
+    context = {
+        'current_page': 'home'
+    }
+
     if request.method == "POST":
         form = SampleForm(request.POST)
         if form.is_valid():
@@ -21,28 +25,28 @@ def home(request):
                                   tissue_type, str(sample_name), origin, condition, ('R'+str(replicate))])
 
             # Check for duplicates
-            if Sample.objects.filter(
-                sample_id=sample_id
-            ).exists():
-                duplicate_message = "A sample with the same ID already exists."
-                return render(request, 'submit_form.html', {'form': form, 'duplicate_message': duplicate_message})
+            if Sample.objects.filter(sample_id=sample_id).exists():
+                context['duplicate_message'] = "A sample with the same ID already exists."
+            else:
+                # Save the form and generate the name
+                sample = form.save(commit=False)
+                sample.sample_id = sample_id
+                sample.save()
+                context['generated_name'] = sample_id
 
-            # Save the form and generate the name
-            sample = form.save(commit=False)
-            sample.sample_id = sample_id
-            sample.save()
-
-            return render(request, 'submit_form.html', {'form': form, 'generated_name': sample_id})
+            context['form'] = form
+            return render(request, 'submit_form.html', context)
     else:
         form = SampleForm()
     
-    return render(request, 'submit_form.html', {'form': form})
+    context['form'] = form
+    return render(request, 'submit_form.html', context)
     
 
 def data(request):
     samples = Sample.objects.all()  # Fetch all data from the Submission model
-    print(samples)
-    return render(request, 'data_table.html', {'samples': samples})
+    # print(samples)
+    return render(request, 'data_table.html', {'samples': samples, 'current_page': 'data'})
 
 def delete(request):
     if request.method == 'POST':
@@ -54,4 +58,6 @@ def delete(request):
         except Sample.DoesNotExist:
             messages.error(request, f'Sample with ID {sample_id} does not exist.')
         return redirect('delete')  # Make sure this matches your URL name
-    return render(request, 'delete_sample.html')
+    return render(request, 'delete_sample.html', {
+        'current_page': 'delete'
+    })
