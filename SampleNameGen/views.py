@@ -37,6 +37,7 @@ def home(request):
         form = SampleForm()
     
     return render(request, 'submit_form.html', {'form': form})
+    
 
 def data(request):
     samples = Sample.objects.all()  # Fetch all data from the Submission model
