@@ -14,7 +14,7 @@
             min-height: 100vh;
         }
         .sidebar {
-            width: 200px;
+            width: 150px;
             background-color: #f4f4f4;
             padding: 20px;
             box-shadow: 2px 0 5px rgba(0,0,0,0.1);
@@ -129,7 +129,7 @@
             margin-bottom: 20px;
         }
         .logo-container img {
-            max-width: 80%;
+            max-width: 100%;
             height: auto;
             object-fit: contain;
         }
@@ -140,7 +140,7 @@
         <div class="logo-container">
             <img src="{% static 'images/SNG_logo.png' %}" alt="Logo">
         </div>
-        <h2>Navigation</h2>
+        <h2>NAVIGATION</h2>
         <ul>
             <li><a href="{% url 'home' %}" {% if current_page == 'home' %}class="active"{% endif %}>Submit Sample</a></li>
             <li><a href="{% url 'data' %}" {% if current_page == 'data' %}class="active"{% endif %}>View Data</a></li>
