@@ -21,6 +21,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            flex-shrink: 0;
         }
         .sidebar img {
             max-width: 100%;
@@ -51,15 +52,17 @@
         }
         .main-content {
             flex: 1;
-            padding: 20px;
+            padding: 20px 0 20px 20px;
             background-color: #fff;
+            overflow-x: auto;
         }
         .container {
-            max-width: 800px;
-            margin: auto;
+            margin: 0;
+            max-width: none;
         }
         h1 {
             color: #333;
+            margin-top: 0;
         }
         .form-group {
             margin-bottom: 15px;
@@ -80,7 +83,7 @@
             box-sizing: border-box;
         }
         .btn {
-            background-color: #007bff;
+            background-color: #fb74e0;
             color: white;
             padding: 10px 15px;
             border: none;
@@ -92,7 +95,7 @@
             transition: background-color 0.3s ease;
         }
         .btn:hover {
-            background-color: #0056b3;
+            background-color: #bc57a8;
         }
         .message {
             padding: 10px;

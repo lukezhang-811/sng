@@ -3,6 +3,18 @@
 {% block title %}Submit Sample{% endblock %}
 
 {% block content %}
+<style>
+    .form-group {
+        max-width: 600px; /* Adjust this value as needed */
+    }
+    .form-control {
+        max-width: 300px; /* Adjust this value as needed */
+    }
+    select.form-control {
+        width: 300px; /* Make sure dropdowns have the same width as text inputs */
+    }
+</style>
+
 <h1>Submit Sample</h1>
 
 {% if duplicate_message %}
