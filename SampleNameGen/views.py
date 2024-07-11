@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from .forms import SampleForm
 from .models import Sample
 
@@ -17,7 +18,7 @@ def home(request):
             replicate = form.cleaned_data['replicate']
 
             sample_id = '_'.join([project_name, institution, technology, storage_type,
-                                  tissue_type, str(sample_name), origin, condition, replicate])
+                                  tissue_type, str(sample_name), origin, condition, ('R'+str(replicate))])
 
             # Check for duplicates
             if Sample.objects.filter(
@@ -37,14 +38,19 @@ def home(request):
     
     return render(request, 'submit_form.html', {'form': form})
 
-def sample_ids(request):
-    submissions = Sample.objects.values_list('sample_id', flat=True)
-    context = {
-        'submissions': submissions,
-    }
-    return render(request, 'sample_id_list.html', context)
-
 def data(request):
     samples = Sample.objects.all()  # Fetch all data from the Submission model
     print(samples)
     return render(request, 'data_table.html', {'samples': samples})
+
+def delete(request):
+    if request.method == 'POST':
+        sample_id = request.POST.get('sample_id')
+        try:
+            sample = get_object_or_404(Sample, sample_id=sample_id)
+            sample.delete()
+            messages.success(request, f'Sample with ID {sample_id} has been deleted successfully.')
+        except Sample.DoesNotExist:
+            messages.error(request, f'Sample with ID {sample_id} does not exist.')
+        return redirect('delete')  # Make sure this matches your URL name
+    return render(request, 'delete_sample.html')

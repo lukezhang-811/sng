@@ -1,37 +1,148 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Submission Form</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Name Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        label {
+            flex: 0 0 200px;
+            margin-right: 10px;
+            text-align: right;
+            font-weight: bold;
+        }
+        .form-control {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .errorlist {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 4px;
+            padding: 5px 10px;
+            margin-top: 5px;
+            list-style-type: none;
+            flex-basis: 100%;
+            margin-left: 210px;
+        }
+        .message {
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .success {
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btnlink {
+            background-color: #ff8000;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .btnlink:hover {
+            background-color: #ab5500;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Submission Form</h1>
-    {% if duplicate_message %}
-        <p style="color: red;">{{ duplicate_message }}</p>
-    {% endif %}
-    {% if generated_name %}
-        <p style="color: green;">Generated Name: {{ generated_name }}</p>
-    {% endif %}
-    <form method="post">
-        {% csrf_token %}
-        <table>
-            {{ form.non_field_errors }}
+    <div class="container">
+        <h1>Sample Name Generator</h1>
+        
+        {% if duplicate_message %}
+            <div class="message error">{{ duplicate_message }}</div>
+        {% endif %}
+        
+        {% if generated_name %}
+            <div class="message success">Generated Name: {{ generated_name }}</div>
+        {% endif %}
+        
+        <form method="post">
+            {% csrf_token %}
             {% for field in form %}
-                <tr>
-                    <td>{{ field.label_tag }}</td>
-                    <td>
-                        {% if field.errors %}
-                            <ul class="errorlist">
-                                {% for error in field.errors %}
-                                    <li>{{ error }}</li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                        {{ field }}
-                    </td>
-                </tr>
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <ul class="errorlist">
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
             {% endfor %}
-        </table>
-        <button type="submit">Submit</button>
-    </form>
+            <div class="button-container">
+                <button type="submit" class="btn">Generate Sample Name</button>
+            </div>
+        </form>
+        
+        <div class="button-container">
+            <a href="{% url 'data' %}" class="btnlink">Go to Data Page</a>
+            <a href="{% url 'delete' %}" class="btnlink">Go to Delete Page</a>
+        </div>
+    </div>
 </body>
 </html>
