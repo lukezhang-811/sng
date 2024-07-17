@@ -1,0 +1,6 @@
+[
+    ["", "Select Condition"],
+    ["N", "Normal"],
+    ["C", "Cancer"],
+    ["D", "Non-cancer Disease"]
+]

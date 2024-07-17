@@ -13,10 +13,12 @@
             <th>Technology</th>
             <th>Storage Type</th>
             <th>Tissue Type</th>
-            <th>Sample Name</th>
+            <th>Sample Identifier</th>
             <th>Origin</th>
             <th>Condition</th>
             <th>Replicate</th>
+            <th>Date</th>
+            <th>Description</th>
         </tr>
     </thead>
     <tbody>
@@ -32,6 +34,8 @@
             <td>{{ sample.origin }}</td>
             <td>{{ sample.condition }}</td>
             <td>{{ sample.replicate }}</td>
+            <td>{{ sample.date }}</td>
+            <td>{{ sample.description }}</td>
         </tr>
         {% endfor %}
     </tbody>

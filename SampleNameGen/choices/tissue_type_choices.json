@@ -1,0 +1,9 @@
+[
+    ["", "Select Tissue Type"],
+    ["BR", "Breast"],
+    ["AP", "Appendix"],
+    ["CO", "Colon"],
+    ["BA", "Brain"],
+    ["PA", "Pancreas"],
+    ["PR", "Prostate"]
+]

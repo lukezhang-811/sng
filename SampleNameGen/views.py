@@ -2,12 +2,23 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .forms import SampleForm
 from .models import Sample
+# from .utils import getAllChoices
 
 def home(request):
+    # choices = getAllChoices()
     context = {
         'current_page': 'home'
     }
-
+    '''context = {
+        'current_page': 'home',
+        'project_choices': choices['PROJECT_CHOICES'],
+        'institution_choices': choices['INSTITUTION_CHOICES'],
+        'technology_choices': choices['TECHNOLOGY_CHOICES'],
+        'storage_type_choices': choices['STORAGE_TYPE_CHOICES'],
+        'tissue_type_choices': choices['TISSUE_TYPE_CHOICES'],
+        'origin_choices': choices['ORIGIN_CHOICES'],
+        'condition_choices': choices['CONDITION_CHOICES'],
+    }'''
     if request.method == "POST":
         form = SampleForm(request.POST)
         if form.is_valid():
@@ -61,3 +72,5 @@ def delete(request):
     return render(request, 'delete_sample.html', {
         'current_page': 'delete'
     })
+
+# def settings(request):
